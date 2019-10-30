@@ -49,7 +49,7 @@ def right_amount():
         else:
             return f"Best savings rate: {decimal_rate}\nSteps in bisection search: {bisectional_search_count}\n>>>"
     
-    return "It is not possible to pay the down payment in three years.\n>>>"  
+    return "It is not possible to pay the down payment in three years.\n>>>\n"  
         
     
 

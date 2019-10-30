@@ -16,12 +16,13 @@ def bisectional_search(start, end):
 
 def three_year_save(salary, saving_rate):
     savings = 0
-    for month in range(36):
-        monthly_save = (salary / 12) * saving_rate 
-        savings += monthly_save + interest(savings)
-        # after every sixth month, get a raise
+    for month in range(1,37):
+        monthly_save = (salary / 12) * saving_rate
+        savings += interest(savings)
+        savings += monthly_save
         if month % 6 == 0:
             salary = semi_raise(salary)
+    # print(f"Total savings is: {savings}")   
     return savings
 
 def right_amount():
@@ -31,19 +32,24 @@ def right_amount():
     bi_start = 0
     bi_end = 10000
 
-    while True:
+    while bi_start <= bi_end:
         current_rate = bisectional_search(bi_start, bi_end)
+        # print(f"Starting at {bi_start}")
+        # print(f"Midpoint is {current_rate}")
+        # print(f"Ending at {bi_end}")
+        # print()
         bisectional_search_count += 1
         decimal_rate = (current_rate) * .0001
         total_savings = three_year_save(annual_salary, decimal_rate)
-        if current_rate == 10000:
-            return ("It is not possible to pay the down payment in three years.\n>>>")  
-        elif total_savings < 249900:
+
+        if total_savings < 249900:
             bi_start = current_rate + 1
         elif total_savings > 250100:
             bi_end = current_rate - 1
         else:
-            return "Best savings rate: " + str(decimal_rate) + "\n""Steps in bisection search: " + str(bisectional_search_count)+ "\n>>>"
+            return f"Best savings rate: {decimal_rate}\nSteps in bisection search: {bisectional_search_count}\n>>>"
+    
+    return "It is not possible to pay the down payment in three years.\n>>>"  
         
     
 
